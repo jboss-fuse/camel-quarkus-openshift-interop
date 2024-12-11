@@ -7,7 +7,7 @@ ENV PATH=$SDKMAN_DIR/candidates/maven/current/bin:$PATH
 # install Maven 3.8.x where x >= 6
 ENV MAVEN_VERSION=3.8.7
 # install oc cli v4.15 due to compatibility with ubi8
-ENV OC_CLIENT_VERSION=4.15.9
+ENV OC_CLIENT_VERSION=4.17.8
 
 WORKDIR /tmp
 
