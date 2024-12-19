@@ -59,9 +59,12 @@ You should only add stable tests without random failures to the list! Once done 
 ## Create an image
 **_NOTE:_** Do not forget to change the `oc_login.sh` file back to its original state before you build and push the image to the registry.
 
+**_NOTE:_** If you hit issue while building the image 
+`BuildKit is enabled but the buildx component is missing or broken.` OR `the --chmod option requires BuildKit. Refer to https://docs.docker.com/go/buildkit/ to learn how to build images with BuildKit enabled`, you have to install docker-buildx. For macOS and Colima, you can do it with https://github.com/abiosoft/colima/discussions/273#discussioncomment-10733819.
+
 ### Create image
 ```
-docker build -t quay.io/rh_integration/camel-quarkus-qe-test-container:latest .
+DOCKER_BUILDKIT=1 docker build -t quay.io/rh_integration/camel-quarkus-qe-test-container:latest .
 ```
 ### Push image
 **_NOTE:_** You have to be first logged in to quay.io. You can find under _Account settings/User settings/Docker CLI Password/Generate Encrypted password_ at quay.io.
@@ -119,7 +122,7 @@ Docker command below will build the image. Then it will run the container, which
 - Change `oc_login.sh` file to login to your existing OCP cluster.
 - Go to `openshift-ci folder` and run:
 ```
-docker build -t camel-quarkus-openshift-interop . && docker run camel-quarkus-openshift-interop | tee output.txt
+DOCKER_BUILDKIT=1 docker build -t camel-quarkus-openshift-interop . && docker run camel-quarkus-openshift-interop | tee output.txt
 ```
 ### With OCP deployment
 - Change `oc_login.sh` file to login to your existing OCP cluster.
