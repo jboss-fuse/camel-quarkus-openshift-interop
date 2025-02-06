@@ -34,10 +34,10 @@ RUN microdnf install -y git zip unzip &&\
 
 # these versions should be updated for every release
 ENV CAMEL_QUARKUS_TS_BRANCH=3.15.x
-ENV QUARKUS_VERSION=3.15.2.redhat-00003
+ENV QUARKUS_VERSION=3.15.3.redhat-00002
 ENV QUARKUS_PLATFORM_GROUP_ID=com.redhat.quarkus.platform
 ENV QUARKUS_PLATFORM_ARTIFACT_ID=quarkus-bom
-ENV CAMEL_QUARKUS_VERSION=3.15.2.redhat-00003
+ENV CAMEL_QUARKUS_VERSION=3.15.3.redhat-00002
 ENV CAMEL_QUARKUS_PLATFORM_GROUP_ID=com.redhat.quarkus.platform
 ENV CAMEL_QUARKUS_PLATFORM_ARTIFACT_ID=quarkus-camel-bom
 
