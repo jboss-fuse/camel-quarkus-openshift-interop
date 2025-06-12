@@ -8,7 +8,7 @@ ENV PATH=$SDKMAN_DIR/candidates/maven/current/bin:$PATH
 ENV MAVEN_VERSION=3.8.7
 # To be able to use oc version higher then 4.15, we must use `openshift-client-linux-amd64-rhel8-<version>.tar.gz` according to https://access.redhat.com/solutions/7077895
 # We could also solve it by upgrading to ubi9, but the official version for Quarkus 3.15 is ubi8
-ENV OC_CLIENT_VERSION=4.17.9
+ENV OC_CLIENT_VERSION=4.18.17
 
 WORKDIR /tmp
 
@@ -33,11 +33,11 @@ RUN microdnf install -y git zip unzip &&\
 	[ ! -d /var/cache/yum ] || rm -rf /var/cache/yum
 
 # these versions should be updated for every release
-ENV CAMEL_QUARKUS_TS_BRANCH=3.15.x
-ENV QUARKUS_VERSION=3.15.4.redhat-00001
+ENV CAMEL_QUARKUS_TS_BRANCH=3.20.x
+ENV QUARKUS_VERSION=3.20.1.SP1-redhat-00001
 ENV QUARKUS_PLATFORM_GROUP_ID=com.redhat.quarkus.platform
 ENV QUARKUS_PLATFORM_ARTIFACT_ID=quarkus-bom
-ENV CAMEL_QUARKUS_VERSION=3.15.4.redhat-00001
+ENV CAMEL_QUARKUS_VERSION=3.20.1.SP1-redhat-00001
 ENV CAMEL_QUARKUS_PLATFORM_GROUP_ID=com.redhat.quarkus.platform
 ENV CAMEL_QUARKUS_PLATFORM_ARTIFACT_ID=quarkus-camel-bom
 
