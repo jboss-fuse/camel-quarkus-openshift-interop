@@ -1,14 +1,14 @@
-FROM --platform=linux/amd64 registry.access.redhat.com/ubi8/openjdk-21
+FROM --platform=linux/amd64 registry.access.redhat.com/ubi9/openjdk-21
 
 ENV LANGUAGE='en_US:en'
 
 ENV SDKMAN_DIR=/root/.sdkman
 ENV PATH=$SDKMAN_DIR/candidates/maven/current/bin:$PATH
-# install Maven 3.8.x where x >= 6
-ENV MAVEN_VERSION=3.8.7
-# To be able to use oc version higher then 4.15, we must use `openshift-client-linux-amd64-rhel8-<version>.tar.gz` according to https://access.redhat.com/solutions/7077895
-# We could also solve it by upgrading to ubi9, but the official version for Quarkus 3.15 is ubi8
-ENV OC_CLIENT_VERSION=4.18.17
+
+ENV MAVEN_VERSION=3.9.9
+# According to this article https://access.redhat.com/solutions/7077895 base image was upgraded to ubi9 together with maven
+# Ubi9 is officially supported since 3.20
+ENV OC_CLIENT_VERSION=4.19.10
 
 WORKDIR /tmp
 
@@ -22,7 +22,7 @@ RUN microdnf install -y git zip unzip &&\
 	sdk install maven "${MAVEN_VERSION}" &&\
 	curl -s https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem > /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt &&\
 	update-ca-trust &&\
-	curl "https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/${OC_CLIENT_VERSION}/openshift-client-linux-amd64-rhel8-${OC_CLIENT_VERSION}.tar.gz" -o oc.tar.gz &&\
+	curl "https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/${OC_CLIENT_VERSION}/openshift-client-linux-${OC_CLIENT_VERSION}.tar.gz" -o oc.tar.gz &&\
 	tar -xaf oc.tar.gz oc &&\
 	mv oc /usr/local/bin/ &&\
 	mkdir --mode=777 /tmp/home &&\
@@ -34,10 +34,10 @@ RUN microdnf install -y git zip unzip &&\
 
 # these versions should be updated for every release
 ENV CAMEL_QUARKUS_TS_BRANCH=3.20.x
-ENV QUARKUS_VERSION=3.20.1.SP1-redhat-00001
+ENV QUARKUS_VERSION=3.20.2.SP1-redhat-00003
 ENV QUARKUS_PLATFORM_GROUP_ID=com.redhat.quarkus.platform
 ENV QUARKUS_PLATFORM_ARTIFACT_ID=quarkus-bom
-ENV CAMEL_QUARKUS_VERSION=3.20.1.SP1-redhat-00001
+ENV CAMEL_QUARKUS_VERSION=3.20.2.SP1-redhat-00003
 ENV CAMEL_QUARKUS_PLATFORM_GROUP_ID=com.redhat.quarkus.platform
 ENV CAMEL_QUARKUS_PLATFORM_ARTIFACT_ID=quarkus-camel-bom
 
@@ -57,7 +57,7 @@ ADD --chmod=755 run.sh oc_login.sh /tmp/tests/
 # to debug on local
 # ADD --chmod=755 oc_login_local.sh /tmp/tests/oc_login.sh
 
-USER jboss
+USER default
 
 # test results are in $PROJECT/target/failsafe-reports/*.xml for every PROJECT in $PROJECTS.
 CMD ./oc_login.sh && ./run.sh
