@@ -33,11 +33,11 @@ RUN microdnf install -y git zip unzip &&\
 	[ ! -d /var/cache/yum ] || rm -rf /var/cache/yum
 
 # these versions should be updated for every release
-ENV CAMEL_QUARKUS_TS_BRANCH=3.20.x
-ENV QUARKUS_VERSION=3.20.2.SP1-redhat-00003
+ENV CAMEL_QUARKUS_TS_BRANCH=3.27.x
+ENV QUARKUS_VERSION=3.27.0.redhat-00002
 ENV QUARKUS_PLATFORM_GROUP_ID=com.redhat.quarkus.platform
 ENV QUARKUS_PLATFORM_ARTIFACT_ID=quarkus-bom
-ENV CAMEL_QUARKUS_VERSION=3.20.2.SP1-redhat-00003
+ENV CAMEL_QUARKUS_VERSION=3.27.0.redhat-00002
 ENV CAMEL_QUARKUS_PLATFORM_GROUP_ID=com.redhat.quarkus.platform
 ENV CAMEL_QUARKUS_PLATFORM_ARTIFACT_ID=quarkus-camel-bom
 
